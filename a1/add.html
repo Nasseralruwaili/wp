@@ -1,1 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Victoria your own way!</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Castoro+Titling&display=swap" rel="stylesheet">
+    
+    <style>
+        .castoro-titling-regular {
+            font-family: "Castoro Titling", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        body {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
+        h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 20%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #b8d0b8;
+            color: #333;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; 
+            background-color: rgb(9, 46, 48);
+            padding: 20px;
+        }
+
+        #logo {
+            width: 50px;
+            height: auto;
+            margin-right: 12px;
+            margin-left: 12px; 
+        }
+
+        select {
+            width: 210px;
+            height: 30px;
+            font-size: 14px;
+            margin-right: 900px;
+            background-color: white; 
+            color: black; 
+            margin-left: auto; 
+        }
+
+        select:hover {
+            background-color: #0056b3; 
+        }
+
+        form {
+            margin-right: 20px; 
+        }
+
+        input[type="text"] {
+            width: 200px; 
+            float: right; 
+        }
+
+        textarea {
+            width: 60%;
+            min-height: 50px;
+            max-height: 200px; 
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical; 
+        }
+
+        #distance {
+            width: 60%;
+            min-height: 30px;
+            max-height: 50px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+    </style>
+    <script src="main.js"></script>
+</head>
+<body>
+
+<nav>
+    <img src="images/logo.png" alt="logo" id="logo">
+    <select onchange="navigateTo(this.value)">
+        <option value="">Select an Option...</option>
+        <option value="index.html">Home</option>
+        <option value="hikes.html">Hikes</option>
+        <option value="add.html">Add more</option>
+        <option value="gallery.html">Gallery</option>
+    </select>
+    <form>
+        <input type="text" placeholder="Search...">
+    </form>
+</nav>
+
+<main>
+    <h1>Add a Hike</h1>
+    <p>YOU CAN ADD A NEW HIKE HERE</p>
+    <form id="addForm" onsubmit="return validateForm()">
+        <label for="hikeName">HIKE NAME: *</label>
+        <input type="text" id="hikeName" name="hikeName" required>
+
+        <label for="description">DESCRIPTION: *</label>
+        <textarea id="description" name="description" rows="1" required></textarea>
+        
+        <label for="image">SELECT AN IMAGE: *</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+
+        <label for="imageCaption">IMAGE CAPTION: *</label>
+        <input type="text" id="imageCaption" name="imageCaption" required>
+
+        <label for="distance">DISTANCE: *</label>
+        <input type="number" id="distance" name="distance" required>
+
+        <label for="location">LOCATION: *</label>
+        <input type="text" id="location" name="location" required>
+
+        <label for="level">LEVEL: *</label>
+        <select id="level" name="level" required>
+            <option value="">-Choose an option-</option>
+            <option value="Easy">Easy</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Difficult">Difficult</option>
+        </select>
+
+        <input type="submit" value="Submit">
+        <input type="reset" value="Clear">
+    </form>
+</main>
+
+<footer>
+    <p>© COPYRIGHT Nasser nahar d, Alruwaili. ALL RIGHTS RESERVED | DESIGNED FOR HIKE</p>
+</footer>
+
+<script>
+    function validateForm() {
+        var hikeName = document.getElementById("hikeName").value;
+        var description = document.getElementById("description").value;
+        var image = document.getElementById("image").value;
+        var imageCaption = document.getElementById("imageCaption").value;
+        var distance = document.getElementById("distance").value;
+        var location = document.getElementById("location").value;
+        var level = document.getElementById("level").value;
+
+        // Add your validation logic here
+
+        return true; // Return true if the form is valid, false otherwise
+    }
+</script>
+
+</body>
+</html>

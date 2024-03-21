@@ -1,1 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gallery</title>
+    <style>
+        nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(9, 46, 48);
+        height: 100px;
+        padding: 0 20px;
+    }
 
+    .logo {
+        width: 50px;
+            height: auto;
+            margin-right: 1002px;
+            margin-left: 0px; 
+    }
+    .search {
+        margin-right: 10px;
+        order: 3; 
+    }
+
+    .select-options {
+        margin-left: 30px;
+        order: 1; 
+    }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9f6; 
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(9, 46, 48);
+            height: 100px;
+            padding: 0 20px; 
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+            order: 2;
+        }
+
+        .search {
+            margin-right: 10px;
+            order: 3;
+        }
+
+        .select-options {
+            margin-left: 10px;
+            order: 1; 
+        }
+
+       
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            width: 30%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .description {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #b8d0b8;
+            color: #333;
+            width: 150%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="select-options">
+            <button>Select Options</button>
+        </div>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo">
+        </div>
+        <div class="search">
+            <input type="text" placeholder="Search...">
+        </div>
+    </nav>
+
+    <div class="gallery">
+        
+        <div class="gallery-item">
+            <img src="images/werribee.jpg" alt="Image 1">
+            <div class="description">werribie goerge circuit walk</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/capewoolamai.jpg" alt="Image 2">
+            <div class="description">cliff, woodland, and quarry tracks</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/lyrebird.jpg" alt="Image 3">
+            <div class="description">lyrebird track</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/keppellookout.jpg" alt="Image 4">
+            <div class="description">keppel lookout trail</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/grampians.jpg" alt="Image 5">
+            <div class="description">the pinnacle walk, & lookout</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/prom.jpg" alt="Image 1">
+            <div class="description">millers landing nature walk</div>
+        </div>
+        <footer>
+            © COPYRIGHT Nasser nahar d, Alruwaili. ALL RIGHTS RESERVED | DESIGNED FOR HIKE
+        </footer>
+    </div>
+</body>
+</html>
