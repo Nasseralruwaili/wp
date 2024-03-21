@@ -1,3 +1,2 @@
 # Assessment 1
-This is the file where you will have to provide a link to your project on the RMIT webserver
-
+sftp://s3962015@jupiter.csit.rmit.edu.au/home/sl5/S3962015
