@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Victoria your own way!</title>
+    <style>
+        .castoro-titling-regular {
+            font-family: "Castoro Titling", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+
+        
+        .word-spacing {
+            letter-spacing: 0.2em; 
+            word-spacing: 0.5em; 
+        }
+        .stretch-paragraph {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: rgb(9, 46, 48);
+            color: white;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-left img {
+            width: 50px;
+            margin-right: 10px;
+        }
+        
+        .header-right {
+            flex: 1;
+            text-align: right;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #b8d0b8;
+            color: #333;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        main img {
+            max-width: 50%; 
+            height: auto;
+            margin-bottom: 20px;
+        }
+        main .content {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            width: 100%;
+        }
+        main .content > * {
+            flex: 1;
+            margin: 0 10px; 
+        }
+        main table {
+            width: 100%;
+        }
+        
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <img src="images/logo.png" alt="Logo" id="logo">
+        <select onchange="navigateTo(this.value)">
+            <option value="">Select an Option...</option>
+            <option value="index.html">Home</option>
+            <option value="hikes.html">Hikes</option>
+            <option value="add.html">Add more</option>
+            <option value="gallery.html">Gallery</option>
+        </select>
+    </div>
+    <div class="header-right">
+        <input type="text" placeholder="Search...">
+    </div>
+</header>
+
+<main>
+    <h1 class="word-spacing castoro-titling-regular">Discover Victoria your own way!</h1>
+    <p class="word-spacing castoro-titling-regular stretch-paragraph">NESTLED IN THE VIBRANT LANDSCAPE OF VICTORIA, AUSTRALIA, HIKING ENTHUSIASTS CAN DISCOVER A REALM OF DIVERSE TERRAINS AND BREATHTAKING VISTAS. FROM THE RUGGED COASTLINE OF THE GREAT OCEAN WALK TO THE MAJESTIC PEAKS OF THE GRAMPIANS NATIONAL PARK, VICTORIA OFFERS A MOSAIC OF TRAILS THAT CATER TO ADVENTURERS OF ALL SKILL LEVELS. HIKERS CAN TRAVERSE THROUGH LUSH RAINFORESTS IN THE OTWAYS, WHERE THE AIR IS FRESH AND THE SOUND OF CASCADING WATERFALLS ACCOMPANIES THE RUSTLE OF FERNS AND TOWERING EUCALYPTUS TREES. EACH STEP REVEALS THE STATE'S NATURAL SPLENDOR, WHETHER IT'S THE WILDFLOWERS BLOOMING IN THE ALPINE NATIONAL PARK OR THE DRAMATIC ROCK FORMATIONS DOTTING THE LANDSCAPE OF THE MORNINGTON PENINSULA.</p>
+       
+    <div class="content">
+        <img src="images/falls.jpg" alt="Main Image" id="mainImage">
+        <table class="trail-info">
+            <tr>
+                <th>Trail Name</th>
+                <th>Distance</th>
+                <th>Difficulty</th>
+                <th>Starting Point</th>
+            </tr>
+            <tr>
+                <td>Werribee Gorge Circuit Walk</td>
+                <td>10 km</td>
+                <td>Moderate</td>
+                <td>Meikles Point Picnic Area</td>
+            </tr>
+            <tr>
+                <td>Clifftop, Woodland and Quarry Tracks</td>
+                <td>8.9 km</td>
+                <td>Moderate</td>
+                <td>Cape Woolamai</td>
+            </tr>
+            <tr>
+                <td>Lyrebird Track</td>
+                <td>4.8 km</td>
+                <td>Easy</td>
+                <td>Upper Ferntree Gully</td>
+            </tr>
+            <tr>
+                <td>Keppel Lookout Trail</td>
+                <td>11 km</td>
+                <td>Moderate</td>
+                <td>Marysville</td>
+            </tr>
+            <tr>
+                <td>The Pinnacle Walk & Lookout</td>
+                <td>2.1 km</td>
+                <td>Easy</td>
+                <td>Grampians</td>
+            </tr>
+            <tr>
+                <td>Millers Landing Nature Walk</td>
+                <td>4.3 km</td>
+                <td>Easy</td>
+                <td>Wilsons Promontory</td>
+            </tr>
+        </table>
+    </div>
+</main>
+
+<footer>
+   © Copyright 2024, Nasser nahar d, alruwaili . All Rights Reserved | Designed for 
+</footer>
+
+</body>
+</html>

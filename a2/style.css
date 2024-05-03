@@ -1,0 +1,80 @@
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d4f7e2; 
+    color: #333; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(9, 46, 48); 
+    height: 100px;
+    padding: 0 20px;
+}
+
+
+main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    flex: 1;
+}
+
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #b8d0b8; 
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header h1 {
+    font-size: 88px;
+    font-weight: bold;
+    color: #4388d1; 
+    margin: 50px;
+    margin-bottom: 100px;
+}
+
+.header h2 {
+    font-size: 66px;
+    font-style: italic;
+    color: #007bff; 
+    margin: 0;
+}
+
+
+.image-container img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+
+.gallery-item img {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.gallery-item .description {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+
+.table-info, .trail-info {
+    width: 100%;
+    margin-bottom: 20px;
+}

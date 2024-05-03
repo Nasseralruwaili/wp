@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +17,15 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
         nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: rgb(9, 46, 48); 
-            height: 100px; 
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(9, 46, 48); 
+    height: 100px; 
         }
+
         main {
             display: flex;
             justify-content: space-between;
@@ -29,12 +33,15 @@
             padding: 20px;
             flex: 1;
         }
+
         .content {
             flex: 1;
         }
+
         .header {
             text-align: left;
         }
+
         .header h1 {
             font-size: 88px;
             font-weight: bold;
@@ -42,22 +49,26 @@
             margin: 50;
             margin-bottom: 100px; 
         }
+
         .header h2 {
             font-size: 66px;
             font-style: italic;
             color: #007bff;
             margin: 0;
         }
+
         .image-container {
             flex: 1;
             display: flex;
             justify-content: flex-end;
         }
+
         .image-container img {
             width: 200px;
             height: 200px;
             border-radius: 50%; 
         }
+
         footer {
             text-align: center;
             padding: 20px;
@@ -67,39 +78,59 @@
     </style>
 </head>
 <body>
-    <?php
-    if (file_exists('inc/nav.inc.php')) {
-        include('inc/nav.inc.php');
-    } else {
-        echo "Navigation file does not exist.";
-    }
-    ?>
 
-    <main>
-        <div class="content">
-            <div class="header">
-                <h1>Hikes Victoria</h1>
-                <h2>Welcome to Victoria</h2>
-            </div>
-        </div>
-        <div class="image-container">
-            <img src="images/apostles.jpg" alt="Main Image" id="mainImage">
-        </div>
-    </main>
+    <nav>
+        <select onchange="navigateTo(this.value)">
+            <option value="">Select an Option...</option>
+            <option value="index.html">Home</option>
+            <option value="hikes.html">Hikes</option>
+            <option value="add.html">Add more</option>
+            <option value="gallery.html">Gallery</option>
+        </select>
+        <img src="images/logo.png" alt="Logo" id="logo">
+        <form>
+            <input type="text" placeholder="Search...">
+        </form>
+    </nav>
+    
+    
+    
 
-    <?php
-    if (file_exists('inc/footer.inc.php')) {
-        include('inc/footer.inc.php');
-    } else {
-        echo "Footer file does not exist.";
+
+<main>
+    <div class="content">
+        <div class="header">
+            <h1>Hikes Victoria</h1>
+            <h2>Welcome to Victoria</h2>
+        </div>
+    </div>
+    <div class="image-container">
+        <img src="images/apostles.jpg" alt="Main Image" id="mainImage">
+    </div>
+</main>
+
+<footer>
+   © Copyright 2024, Nasser Nahar D. Alruwaili. All Rights Reserved | Designed for Hikes Victoria
+</footer>
+<style>
+    nav {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: rgb(9, 46, 48);
+        height: 100px;
     }
-    ?>
-    <script>
-        function navigateTo(location) {
-            if (location) {
-                window.location.href = location; 
-            }
-        }
-    </script>
+
+    nav img {
+        margin-left: 10px;
+    }
+
+    nav form {
+        margin-left: auto;
+    }
+</style>
+
+
 </body>
 </html>
+

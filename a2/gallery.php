@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <?php include('inc/header.inc'); ?>
+    <?php include('inc/header.inc.php'); ?>
 
     <div class="gallery">
         <?php
-        include('inc/db_connect.inc');
+        include('inc/db_connect.inc.php');
         $sql = "SELECT image_path, description FROM gallery_items"; 
         $result = $conn->query($sql);
 
@@ -29,6 +29,6 @@
         ?>
     </div>
 
-    <?php include('inc/footer.inc'); ?>
+    <?php include('inc/footer.inc.php'); ?>
 </body>
 </html>
