@@ -1,12 +1,14 @@
 <?php
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'hikes_victoria';
+$servername = "titan.csit.rmit.edu.a";
+$username = "s3962015";
+$password = "Arteta8268!";
+$dbname = "s3962015_db";
 
-// Set DSN
-$dsn = 'mysql:host=' . $host . ';dbname=' . $dbname;
-// Create a PDO instance
-$pdo = new PDO($dsn, $user, $password);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>
