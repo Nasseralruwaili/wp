@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php if (isset($error)): ?>
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endif; ?>
-    <form id="addForm" method="POST" action="" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <form id="addForm" method="POST" action="add.php" enctype="multipart/form-data" onsubmit="return validateForm()">
         <label for="hikeName">HIKE NAME: *</label>
         <input type="text" id="hikeName" name="hikeName" required>
 

@@ -1,11 +1,23 @@
 <?php
-require 'includes/db.php';
 session_start();
 
-$sql = 'SELECT * FROM hikes';
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Function to get all image files from the images directory, excluding the logo
+function getImages($directory) {
+    $images = array();
+    if (is_dir($directory)) {
+        if ($dir = opendir($directory)) {
+            while (($file = readdir($dir)) !== false) {
+                if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), array('jpg', 'jpeg', 'png', 'gif')) && $file != 'logo.png') {
+                    $images[] = $file;
+                }
+            }
+            closedir($dir);
+        }
+    }
+    return $images;
+}
+
+$images = getImages('images');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,22 +40,49 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .logo {
             width: 50px;
             height: auto;
-            margin-right: 1002px;
-            margin-left: 0px; 
-        }
-        .search {
-            margin-right: 10px;
-            order: 3; 
         }
 
-        .select-options {
-            margin-left: 30px;
-            order: 1; 
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-left ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-left .nav-item {
+            margin-left: 20px;
+        }
+
+        .nav-left .nav-link {
+            text-decoration: none;
+            color: white; /* Adjust the color as needed */
+            font-weight: bold;
+        }
+
+        .nav-left .nav-link:hover {
+            color: #007bff; /* Adjust the hover color as needed */
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-right input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f9f6; 
+            background-color: #f4f9f6;
             color: #333;
             margin: 0;
             padding: 0;
@@ -61,12 +100,14 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         .gallery-item {
             width: 30%;
-            margin-bottom: 20px;
+            margin: 10px;
             text-align: center;
         }
 
         .gallery-item img {
             width: 100%;
+            height: 200px;
+            object-fit: cover;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -81,29 +122,32 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             padding: 30px;
             background-color: #b8d0b8;
             color: #333;
-            width: 150%;
+            width: 100%;
             box-sizing: border-box;
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="select-options">
-            <button>Select Options</button>
+        <div class="nav-left">
+            <img src="images/logo.png" alt="Logo" class="logo">
+            <ul class="navbar-nav d-flex flex-row">
+                <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="hikes.php">Hikes</a></li>
+                <li class="nav-item"><a class="nav-link" href="add.php">Add More</a></li>
+                <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
+            </ul>
         </div>
-        <div class="logo">
-            <img src="images/logo.png" alt="Logo">
-        </div>
-        <div class="search">
+        <div class="nav-right">
             <input type="text" placeholder="Search...">
         </div>
     </nav>
 
     <div class="gallery">
-        <?php foreach ($hikes as $hike): ?>
+        <?php foreach ($images as $image): ?>
             <div class="gallery-item">
-                <img src="images/<?php echo htmlspecialchars($hike['image']); ?>" alt="<?php echo htmlspecialchars($hike['caption']); ?>">
-                <div class="description"><?php echo htmlspecialchars($hike['description']); ?></div>
+                <img src="images/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars(pathinfo($image, PATHINFO_FILENAME)); ?>">
+                <div class="description"><?php echo htmlspecialchars(pathinfo($image, PATHINFO_FILENAME)); ?></div>
             </div>
         <?php endforeach; ?>
     </div>

@@ -39,6 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Failed to upload image";
     }
 }
+
+$sql = 'SELECT * FROM hikes WHERE username = :username';
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['username' => $_SESSION['username']]);
+$hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,16 +94,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-left: 12px;
         }
 
-        .nav-left select {
-            width: 210px;
-            height: 30px;
-            font-size: 14px;
-            background-color: white;
-            color: black;
+        .nav-left ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
         }
 
-        .nav-left select:hover {
-            background-color: #0056b3;
+        .nav-left .nav-item {
+            margin-left: 20px;
+        }
+
+        .nav-left .nav-link {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-left .nav-link:hover {
+            color: #007bff;
         }
 
         .nav-right {
@@ -114,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         main {
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             margin: 20px auto;
             padding: 20px;
@@ -130,48 +144,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-bottom: 20px;
         }
 
-        form {
+        .hike {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
+        .hike-details {
+            flex: 1;
         }
 
-        input[type="text"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        input[type="file"] {
-            width: 100%;
-            padding: 10px;
-        }
-
-        input[type="submit"],
-        input[type="reset"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        input[type="submit"]:hover,
-        input[type="reset"]:hover {
-            background-color: #0056b3;
+        .hike-actions {
+            display: flex;
+            gap: 10px;
         }
 
         footer {
@@ -183,20 +169,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             box-sizing: border-box;
         }
     </style>
-    <script src="js/scripts.js"></script>
 </head>
 <body>
 
 <nav>
     <div class="nav-left">
         <img src="images/logo.png" alt="logo" id="logo">
-        <select onchange="navigateTo(this.value)">
-            <option value="">Select an Option...</option>
-            <option value="index.php">Home</option>
-            <option value="hikes.php">Hikes</option>
-            <option value="add.php">Add more</option>
-            <option value="gallery.php">Gallery</option>
-        </select>
+        <ul class="navbar-nav d-flex flex-row">
+            <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="hikes.php">Hikes</a></li>
+            <li class="nav-item"><a class="nav-link" href="add.php">Add More</a></li>
+            <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
+        </ul>
     </div>
     <div class="nav-right">
         <form>
@@ -206,65 +190,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </nav>
 
 <main>
-    <h1>Add a Hike</h1>
-    <p>YOU CAN ADD A NEW HIKE HERE</p>
+    <h1>Your Hikes</h1>
     <?php if (isset($error)): ?>
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endif; ?>
-    <form id="addForm" method="POST" action="" enctype="multipart/form-data" onsubmit="return validateForm()">
-        <label for="hikeName">HIKE NAME: *</label>
-        <input type="text" id="hikeName" name="hikeName" required>
-
-        <label for="description">DESCRIPTION: *</label>
-        <textarea id="description" name="description" rows="4" required></textarea>
-
-        <label for="image">SELECT AN IMAGE: *</label>
-        <input type="file" id="image" name="image" accept="image/*" required>
-
-        <label for="imageCaption">IMAGE CAPTION: *</label>
-        <input type="text" id="imageCaption" name="imageCaption" required>
-
-        <label for="distance">DISTANCE: *</label>
-        <input type="number" id="distance" name="distance" required>
-
-        <label for="location">LOCATION: *</label>
-        <input type="text" id="location" name="location" required>
-
-        <label for="level">LEVEL: *</label>
-        <select id="level" name="level" required>
-            <option value="">-Choose an option-</option>
-            <option value="Easy">Easy</option>
-            <option value="Moderate">Moderate</option>
-            <option value="Difficult">Difficult</option>
-        </select>
-
-        <input type="submit" value="Submit">
-        <input type="reset" value="Clear">
-    </form>
+    <?php foreach ($hikes as $hike): ?>
+        <div class="hike">
+            <div class="hike-details">
+                <h2><?php echo htmlspecialchars($hike['hikename']); ?></h2>
+                <p><?php echo htmlspecialchars($hike['description']); ?></p>
+            </div>
+            <div class="hike-actions">
+                <a href="edit.php?id=<?php echo $hike['hikeid']; ?>" class="btn btn-primary">Edit</a>
+                <a href="delete.php?id=<?php echo $hike['hikeid']; ?>" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </main>
 
 <footer>
     <p>© COPYRIGHT Nasser nahar d, Alruwaili. ALL RIGHTS RESERVED | DESIGNED FOR HIKE</p>
 </footer>
-
-<script>
-    function validateForm() {
-        var hikeName = document.getElementById("hikeName").value;
-        var description = document.getElementById("description").value;
-        var image = document.getElementById("image").value;
-        var imageCaption = document.getElementById("imageCaption").value;
-        var distance = document.getElementById("distance").value;
-        var location = document.getElementById("location").value;
-        var level = document.getElementById("level").value;
-
-        if (!hikeName || !description || !image || !imageCaption || !distance || !location || !level) {
-            alert("All fields are required!");
-            return false;
-        }
-
-        return true; // Return true if the form is valid, false otherwise
-    }
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

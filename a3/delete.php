@@ -10,11 +10,22 @@ if (!isset($_SESSION['username'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hikeid = $_POST['hikeid'];
 
+    // Delete image file
+    $sql = 'SELECT image FROM hikes WHERE hikeid = :hikeid';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['hikeid' => $hikeid]);
+    $hike = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($hike && file_exists("images/" . $hike['image'])) {
+        unlink("images/" . $hike['image']);
+    }
+
+    // Delete hike record
     $sql = 'DELETE FROM hikes WHERE hikeid = :hikeid';
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['hikeid' => $hikeid]);
 
     header('Location: hikes.php');
+    exit();
 }
 
 if (isset($_GET['id'])) {
@@ -48,6 +59,7 @@ if (isset($_GET['id'])) {
     <div class="container">
         <h1>Delete Hike</h1>
         <p>Are you sure you want to delete this hike?</p>
+        <p><strong><?php echo htmlspecialchars($hike['hikename']); ?></strong></p>
         <form method="POST" action="">
             <input type="hidden" name="hikeid" value="<?php echo $hike['hikeid']; ?>">
             <button type="submit" class="btn btn-danger">Delete</button>

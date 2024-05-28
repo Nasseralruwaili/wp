@@ -1,10 +1,5 @@
 <?php
 require 'includes/db.php';
-
-$sql = 'SELECT * FROM hikes ORDER BY hikeid DESC LIMIT 4';
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +27,68 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             align-items: center;
             background-color: rgb(9, 46, 48); 
             height: 100px; 
+            padding: 0 20px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-left ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-left .nav-item {
+            margin-left: 20px;
+        }
+
+        .nav-left .nav-link {
+            text-decoration: none;
+            color: white; /* Adjust the color as needed */
+            font-weight: bold;
+        }
+
+        .nav-left .nav-link:hover {
+            color: #007bff; /* Adjust the hover color as needed */
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-right form {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-right input[type="text"] {
+            padding: 5px;
+        }
+
+        .nav-right ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-right .nav-item {
+            margin-left: 20px;
+        }
+
+        .nav-right .nav-link {
+            text-decoration: none;
+            color: white; /* Adjust the color as needed */
+            font-weight: bold;
+        }
+
+        .nav-right .nav-link:hover {
+            color: #007bff; /* Adjust the hover color as needed */
         }
 
         main {
@@ -44,6 +101,7 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         .content {
             flex: 1;
+            text-align: left;
         }
 
         .header {
@@ -55,7 +113,7 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             font-weight: bold;
             color: #4388d1;
             margin: 50;
-            margin-bottom: 100px; 
+            margin-bottom: 20px; 
         }
 
         .header h2 {
@@ -65,16 +123,52 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             margin: 0;
         }
 
+        .subtitle {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+
+        .body-text {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
         .image-container {
+            position: relative;
             flex: 1;
             display: flex;
             justify-content: flex-end;
         }
 
         .image-container img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%; 
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .image-selector {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .arrow {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 20px;
+        }
+
+        .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         footer {
@@ -83,28 +177,29 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             background-color: #b8d0b8;
             color: #333; 
         }
-
-        .carousel-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
     </style>
 </head>
 <body>
 
 <nav>
-    <select onchange="navigateTo(this.value)">
-        <option value="">Select an Option...</option>
-        <option value="index.php">Home</option>
-        <option value="hikes.php">Hikes</option>
-        <option value="add.php">Add more</option>
-        <option value="gallery.php">Gallery</option>
-    </select>
-    <img src="images/logo.png" alt="Logo" id="logo">
-    <form>
-        <input type="text" placeholder="Search...">
-    </form>
+    <div class="nav-left">
+        <img src="images/logo.png" alt="Logo" id="logo" style="width: 50px; height: auto;">
+        <ul class="navbar-nav d-flex flex-row">
+            <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="hikes.php">Hikes</a></li>
+            <li class="nav-item"><a class="nav-link" href="add.php">Add More</a></li>
+            <li class="nav-item"><a class="nav-link" href="gallery.php">Gallery</a></li>
+        </ul>
+    </div>
+    <div class="nav-right">
+        <form>
+            <input type="text" placeholder="Search...">
+        </form>
+        <ul class="navbar-nav d-flex flex-row">
+            <li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.php">Log In</a></li>
+        </ul>
+    </div>
 </nav>
 
 <main>
@@ -113,33 +208,16 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <h1>Hikes Victoria</h1>
             <h2>Welcome to Victoria</h2>
         </div>
+        <div class="subtitle">Discover Victoria your own way!</div>
+        <div class="body-text">
+            Nestled in the vibrant landscape of Victoria, Australia, hiking enthusiasts can discover a realm of diverse terrains and breathtaking vistas from the rugged coastline of the Great Ocean Road to the majestic peaks of the Grampians National Park. Victoria offers a mosaic of trails that cater to adventurers of all skill levels. Hikers can traverse through lush rainforests in the Otways, where the air is fresh and the sound of cascading waterfalls accompanies the rustle of ferns and towering eucalyptus trees. Each step reveals the state's natural splendor, whether it's the wildflowers blooming in the Alpine National Park or the dramatic rock formations dotting the landscape of the Mornington Peninsula. Are you ready to explore?
+        </div>
     </div>
     <div class="image-container">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <?php foreach ($hikes as $index => $hike): ?>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index === 0 ? 'active' : ''; ?>" aria-current="true" aria-label="Slide <?php echo $index + 1; ?>"></button>
-                <?php endforeach; ?>
-            </div>
-            <div class="carousel-inner">
-                <?php foreach ($hikes as $index => $hike): ?>
-                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                        <img src="images/<?php echo htmlspecialchars($hike['image']); ?>" alt="<?php echo htmlspecialchars($hike['caption']); ?>">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5><?php echo htmlspecialchars($hike['hikename']); ?></h5>
-                            <p><?php echo htmlspecialchars($hike['description']); ?></p>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+        <img id="mainImage" src="images/apostles.jpg" alt="Apostles">
+        <div class="image-selector">
+            <button class="arrow" onclick="changeImage('images/prom.jpg')">&lt;</button>
+            <button class="arrow" onclick="changeImage('images/werribee.jpg')">&gt;</button>
         </div>
     </div>
 </main>
@@ -149,5 +227,18 @@ $hikes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const images = ['images/apostles.jpg', 'images/image2.jpg', 'images/image3.jpg'];
+    let currentIndex = 0;
+
+    function changeImage(direction) {
+        if (direction === 'next') {
+            currentIndex = (currentIndex + 1) % images.length;
+        } else if (direction === 'prev') {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+        }
+        document.getElementById('mainImage').src = images[currentIndex];
+    }
+</script>
 </body>
 </html>

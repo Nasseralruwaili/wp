@@ -4,18 +4,19 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
-    $password = sha1($_POST['password']); // SHA encryption
+    $password = $_POST['password'];
 
-    $sql = 'SELECT * FROM users WHERE username = :username AND password = :password';
+    $sql = 'SELECT * FROM users WHERE username = :username';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['username' => $username, 'password' => $password]);
+    $stmt->execute(['username' => $username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user) {
-        $_SESSION['username'] = $user['username'];
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['username'] = $username;
         header('Location: index.php');
+        exit();
     } else {
-        $error = "Invalid username or password";
+        $error = 'Invalid username or password';
     }
 }
 ?>
@@ -26,28 +27,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #d4f7e2;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 36px;
+            color: #4388d1;
+        }
+        .btn {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <?php include('includes/header.php'); ?>
     <div class="container">
         <h1>Login</h1>
         <?php if (isset($error)): ?>
             <div class="alert alert-danger"><?php echo $error; ?></div>
         <?php endif; ?>
-        <form method="POST" action="">
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+        <form method="POST" action="login.php">
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="Username" required>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
+            <a href="register.php" class="btn btn-secondary">Register</a>
         </form>
     </div>
-    <?php include('includes/footer.php'); ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
