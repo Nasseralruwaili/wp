@@ -1,5 +1,5 @@
 <?php
-require 'includes/db.php';
+require 'db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
