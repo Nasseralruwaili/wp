@@ -1,6 +1,10 @@
 <?php
+$path = __DIR__ . '/includes/db.php';
+echo "Path: $path";
+require $path;
 require 'includes/db.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
