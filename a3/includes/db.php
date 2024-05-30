@@ -1,8 +1,15 @@
 <?php
-$servername = "titan.csit.rmit.edu.a";
-$username = "s3962015";
-$password = "Arteta8268!";
-$dbname = "s3962015_db";
+if (strstr($_SERVER['SERVER_NAME'], 'localhost')) {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "hikes_victoria";
+} else {
+    $servername = "talsprddb02.int.its.rmit.edu.au";
+    $username = "s3962015";
+    $password = "Nasser123";
+    $dbname = "s3962015";
+}
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
